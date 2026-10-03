@@ -10,7 +10,6 @@ import CachedVideoPlayer from './CachedVideoPlayer';
 import AudioVisualizer from '../audio/AudioVisualizer';
 import SyncOverlay, { registerSyncCore, registerAudioRef, registerMvRef, registerBgRef, registerEngineStateRef, registerVideoOffsetRef, registerRvfcStatusRef, registerVideoRemountCount, registerReplayStateRef, registerRecordingState, registerAnalyzerEvidence, registerDecisionOutput } from './SyncOverlay';
 import NetworkImage from '../shared/NetworkImage';
-import SpeakerOutputButton from './SpeakerOutputButton';
 import usePlaybackStore from '../store/playbackStore';
 import { useIsFavorite } from '../store/favoritesStore';
 import { applySink, getStoredDevice } from '../utils/audioOutput';
@@ -2215,17 +2214,16 @@ const handleSeekSync = useCallback((seconds) => {
                  <Heart size={20} className={isFav ? 'fill-red-500' : ''} />
                </button>
            </div>
-           {hasPlaylist && (
-            <button
-              onClick={() => setShowQueuePanel(p => !p)}
-              className={`p-2 rounded-full transition-colors ${showQueuePanel ? 'bg-white/20 text-white' : 'hover:bg-white/20 text-white/60'}`}
-              title="Queue"
-            >
-              <ListMusic className="w-5 h-5" />
-            </button>
-           )}
-           <SpeakerOutputButton audioRef={audioRef} />
-           {onMinimize && (
+            {hasPlaylist && (
+             <button
+               onClick={() => setShowQueuePanel(p => !p)}
+               className={`p-2 rounded-full transition-colors ${showQueuePanel ? 'bg-white/20 text-white' : 'hover:bg-white/20 text-white/60'}`}
+               title="Queue"
+             >
+               <ListMusic className="w-5 h-5" />
+             </button>
+            )}
+            {onMinimize && (
              <button
                onClick={onMinimize}
                className="p-2 rounded-full hover:bg-white/20 transition-colors"
@@ -2713,38 +2711,50 @@ const handleSeekSync = useCallback((seconds) => {
             </div>
           )}
 
-          {/* Lyrics child — fills the square clip region (blurred cover + lyrics) */}
-          <div
-            className="absolute inset-0"
-            style={{
-              borderRadius: '1rem',
-              overflow: 'hidden',
-              opacity: playerMode === 'lyrics' ? 1 : 0,
-              pointerEvents: playerMode === 'lyrics' ? 'auto' : 'none',
-              transition: 'opacity 400ms ease',
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-neutral-900 to-sky-900" />
-              <NetworkImage
-                src={coverBlobUrl || activeCoverUrl}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ filter: 'blur(28px) brightness(0.7) saturate(1.25)', transform: 'scale(1.15)' }}
-                showRetry={false}
-              />
-            <div className="absolute inset-0 bg-black/15" />
-            <div
-              className="absolute inset-0"
-              style={{ background: 'radial-gradient(circle at center, rgba(10,10,10,0) 38%, rgba(10,10,10,0.6) 100%)' }}
-            />
-            <div className="relative z-10 w-full h-full overflow-y-auto p-4 sm:p-6">
-              <LyricsDisplay
-                lyrics={lyricsSynced || trackMetadata?.lyrics}
-                audioRef={audioRef}
-                isPlaying={isPlaying}
-              />
-            </div>
-          </div>
+           {/* Lyrics child — fills the square clip region (blurred cover + lyrics) */}
+           <div
+             className="absolute inset-0"
+             style={{
+               borderRadius: '1rem',
+               overflow: 'hidden',
+               opacity: playerMode === 'lyrics' ? 1 : 0,
+               pointerEvents: playerMode === 'lyrics' ? 'auto' : 'none',
+               transition: 'opacity 400ms ease',
+             }}
+           >
+             {activeFile && (coverBlobUrl || activeCoverUrl) ? (
+               <>
+             <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-neutral-900 to-sky-900" />
+               <NetworkImage
+                 src={coverBlobUrl || activeCoverUrl}
+                 alt=""
+                 className="absolute inset-0 w-full h-full object-cover"
+                 style={{ filter: 'blur(28px) brightness(0.7) saturate(1.25)', transform: 'scale(1.15)' }}
+                 showRetry={false}
+               />
+             </>
+             ) : (
+               <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-neutral-900 to-sky-900 flex items-center justify-center">
+                 <svg className="w-20 h-20 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                   <path d="M9 18V5l12-2v13" />
+                   <circle cx="6" cy="18" r="3" />
+                   <circle cx="18" cy="16" r="3" />
+                 </svg>
+               </div>
+             )}
+             <div className="absolute inset-0 bg-black/15" />
+             <div
+               className="absolute inset-0"
+               style={{ background: 'radial-gradient(circle at center, rgba(10,10,10,0) 38%, rgba(10,10,10,0.6) 100%)' }}
+             />
+             <div className="relative z-10 w-full h-full overflow-y-auto p-4 sm:p-6">
+               <LyricsDisplay
+                 lyrics={lyricsSynced || trackMetadata?.lyrics}
+                 audioRef={audioRef}
+                 isPlaying={isPlaying}
+               />
+             </div>
+           </div>
         </div>
 
         {/* SPLIT BLOCK (video-split: lyrics, video-cover: cover art).
@@ -2947,7 +2957,7 @@ const handleSeekSync = useCallback((seconds) => {
         {youtubeId && (
         <video
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ filter: `blur(12px) saturate(1.4) brightness(${isPlaying ? 0.85 : 0.45})`, transition: 'filter 400ms ease', transform: 'scale(1.2)', zIndex: 0, opacity: isVideoMode ? 0.45 : playerMode === 'cover' ? 0.35 : 0, maskImage: 'radial-gradient(ellipse at center, black 25%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 25%, transparent 70%)', maskSize: '100% 100%', WebkitMaskSize: '100% 100%' }}
+          style={{ filter: `blur(12px) saturate(1.4) brightness(${isPlaying ? 0.85 : 0.45})`, transition: 'filter 400ms ease', transform: 'scale(1.2)', zIndex: 0, opacity: 0.35, maskImage: 'radial-gradient(ellipse at center, black 25%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 25%, transparent 70%)', maskSize: '100% 100%', WebkitMaskSize: '100% 100%' }}
           src={`/api/video-cache/stream/${youtubeId}`}
           muted
           playsInline
