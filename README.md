@@ -9,6 +9,21 @@ Full-stack music player with React + Express, designed for local media libraries
 - **Sync Engine**: `@homelab/sync-engine` for video/subtitle synchronization
 - **Database**: SQLite with FTS5 full-text search
 
+## Engines
+
+This app is a consumer of three standalone engines. It does not reimplement persistence, media boundary, or sync logic.
+
+- **DB Engine** — owns SQLite connection lifecycle, schema, WAL, backup, and transactions  
+  https://github.com/NE2KO/Neko2Neko-DB-Engine
+
+- **Media Engine** — owns filesystem boundary, streaming, search, visibility, and scanning  
+  https://github.com/NE2KO/Neko2Neko-Media-Engine
+
+- **Triangle Sync Engine** — owns frame-accurate A/V sync between Audio, MV, and BG  
+  https://github.com/NE2KO/Neko2Neko-Triangle-Sync-Engine
+
+For the full architecture and requirements, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ## Features
 
 - Local media library management with folder scanning
