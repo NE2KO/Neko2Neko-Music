@@ -1,0 +1,24 @@
+{
+  "name": "@homelab/music-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --expose-gc --watch src/server.js"
+  },
+  "dependencies": {
+    "@homelab/db-engine": "file:../../../Engine/db-engine",
+    "@homelab/media-engine": "file:/home/CATIAA/Engine/media-engine",
+    "better-sqlite3": "^12.9.0",
+    "busboy": "^1.6.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "fast-xml-parser": "^5.8.0",
+    "music-metadata": "^10.6.0",
+    "node-fetch": "^3.3.2",
+    "toml": "^5.0.0",
+    "ws": "^8.21.0"
+  }
+}

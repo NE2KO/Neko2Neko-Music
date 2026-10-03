@@ -1,0 +1,35 @@
+[global]
+thumbnail_root = "./thumbnails"
+scan_period_minutes = 15
+scan_batch_size = 250
+startup_grace_ms = 30000
+probe_timeout = 15000
+
+# Replace with a strong secret key in production.
+# Generate with: openssl rand -hex 32
+secret_key = "dev-only-change-in-production"
+
+# ---------------------------------------------------------------------------
+# Web policies: each section defines one web app that may access the engine.
+# The engine enforces these policies on every stream request.
+# ---------------------------------------------------------------------------
+
+[web.movies]
+path = "/movies"
+allowed_roots = ["/media/movies"]
+types = ["video/mp4", "video/x-matroska", "video/webm", "video/quicktime"]
+# web_id is the visibility scope for soft-delete checks.
+# If omitted, defaults to the section name ("movies").
+web_id = "release-movies"
+
+[web.music]
+path = "/music"
+allowed_roots = ["/home/CATIAA/Music"]
+types = ["audio/mpeg", "audio/flac", "audio/wav", "audio/ogg", "audio/aac", "audio/mp4", "audio/x-m4a", "application/octet-stream", "image/jpeg", "image/png"]
+web_id = "release-music"
+
+[web.admin]
+path = "/admin"
+allowed_roots = ["/media"]
+types = ["video/mp4", "video/x-matroska", "audio/mpeg", "audio/flac", "image/jpeg", "image/png", "application/octet-stream"]
+web_id = "admin"

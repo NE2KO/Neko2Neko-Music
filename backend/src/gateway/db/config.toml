@@ -1,0 +1,14 @@
+[music]
+dbPath = "/home/CATIAA/WEB/db/Music/music.db"
+
+[playlist]
+dbPath = "/home/CATIAA/WEB/db/Music/playlist.db"
+
+[video-cache]
+dbPath = "/home/CATIAA/WEB/db/Music/videocache.db"
+
+[thumb-cache]
+dbPath = "/home/CATIAA/WEB/db/Music/thumbcache.db"
+
+[lists]
+dbPath = "/home/CATIAA/WEB/db/Music/lists.db"

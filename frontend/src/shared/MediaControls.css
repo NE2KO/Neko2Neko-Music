@@ -1,0 +1,24 @@
+.MediaControls-VolumeSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.MediaControls-VolumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.MediaControls-VolumeSlider::-webkit-slider-runnable-track {
+  display: none;
+}
+
+.MediaControls-VolumeSlider::-moz-range-thumb {
+  display: none;
+}
+
+.MediaControls-VolumeSlider::-moz-range-track {
+  display: none;
+}
