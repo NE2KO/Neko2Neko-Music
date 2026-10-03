@@ -2,5 +2,20 @@ node_modules/
 cache/
 logs/
 dist/
+backend/data/media.db
+backend/metadata_cache/
+
 *.log
 .DS_Store
+
+# Lockfiles
+pnpm-lock.yaml
+backend/pnpm-lock.yaml
+
+# Docs - keep README only
+BACKEND_MIGRATION.md
+MUSIC-BACKEND-DEPENDENCY-AUDIT.md
+MUSIC-ENGINE-WIRING.md
+MUSIC-FULL-FILE-MAP.md
+MUSIC-STANDALONE-ARCHITECTURE.md
+MUSIC-STANDALONE-EXTRACTION-REPORT.md
